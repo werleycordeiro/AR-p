@@ -6,7 +6,7 @@ T = dim(data)[1]
 if(p==1){
 	Y = as.numeric(data[-1])
 	X = as.numeric(data[-T])
-	X = cbind(rep(1,length(X)),X)
+	if(inter){X = cbind(rep(1,length(X)),X)}
 }else{
 	if(p>1){
 		X = matrix(NA,T-p,p)
@@ -26,6 +26,6 @@ if(p==1){
 b = solve(t(X) %*% X) %*% t(X) %*% Y
 pars = expand.grid(orderp = 1:p)
 names = paste0("Beta",pars$orderp)
-if(mean){rownames(b) = c("intercept",names)}else{rownames(b) = c(names)}
+if(inter){rownames(b) = c("intercept",names)}else{rownames(b) = c(names)}
 return(b)
 }
