@@ -1,5 +1,5 @@
 # AR(p)
-P=3, for instance, matrix X will be as follow
+Matrix X will be as follow if p=3 for instance
 
 
 |	|Y |X1|X2|X3|
