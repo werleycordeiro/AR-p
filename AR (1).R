@@ -4,17 +4,14 @@
 # Package
 
 install.packages("quantmod")
-
 library(quantmod)
 
 # Data
 
 getSymbols('PBR',return.class = 'xts',index.class = 'Date',from = "2019-01-01",to = Sys.Date(),periodicity = "daily",src='yahoo')
-
 data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 
 # AR(p)
-
 # OLS
 
 p = 2
@@ -46,4 +43,3 @@ pars = expand.grid(orderp = 1:p)
 names = paste0("Beta",pars$orderp)
 rownames(b) = c("intercept",names)
 b
-
