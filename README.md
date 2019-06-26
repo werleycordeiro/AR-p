@@ -14,9 +14,3 @@ P=3, for instance, matrix X will be as follow
 |8| 8| 8| 8|	
 |9| 9| 9|			
 |10|10|	
-
-
-| First Header  | Second Header |
-| ------------- | ------------- |
-| Content Cell  | Content Cell  |
-| Content Cell  | Content Cell  |
