@@ -15,8 +15,9 @@ data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 # OLS
 
 p = 2
-T = dim(data)[1]
 
+ar_p<-function(data,p){
+T = dim(data)[1]
 if(p==1){
 	Y = as.numeric(data[-1])
 	X = as.numeric(data[-T])
@@ -38,8 +39,11 @@ if(p==1){
 }
 
 b = solve(t(X) %*% X) %*% t(X) %*% Y
-
 pars = expand.grid(orderp = 1:p)
 names = paste0("Beta",pars$orderp)
 rownames(b) = c("intercept",names)
-b
+return(b)
+}
+
+# Compare with ar{stats}
+ar(data,FALSE,order.max=1,method="ols",demean=TRUE)
