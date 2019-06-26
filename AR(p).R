@@ -16,7 +16,7 @@ data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 
 p = 2
 source("ar_p.R")
-ar_p(data=data,p=p)
+ar_p(data=data,p=p,inter=TRUE)
 
 # Compare with ar{stats}
 
