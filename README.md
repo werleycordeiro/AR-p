@@ -2,8 +2,8 @@
 P=3, for instance, matrix X will be as follow
 
 
-	Y	X1	X2	X3	
-1				1
+	Y|	X1|	X2|	X3|	
+1|	|	|	|	1|
 2			2	2
 3		3	3	3
 4	4	4	4	4
