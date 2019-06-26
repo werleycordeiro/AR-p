@@ -1,7 +1,7 @@
 # OLS
 # AR(p)
 
-ar_p<-function(data,p){
+ar_p<-function(data,p,inter){
 T = dim(data)[1]
 if(p==1){
 	Y = as.numeric(data[-1])
@@ -19,13 +19,13 @@ if(p==1){
 			}
 		}
 		Y = as.numeric(data[-(1:p)])
-		X = cbind(rep(1,dim(X)[1]),X)
+		if(inter){X = cbind(rep(1,dim(X)[1]),X)}
 		}
 }
 
 b = solve(t(X) %*% X) %*% t(X) %*% Y
 pars = expand.grid(orderp = 1:p)
 names = paste0("Beta",pars$orderp)
-rownames(b) = c("intercept",names)
+if(mean){rownames(b) = c("intercept",names)}else{rownames(b) = c(names)}
 return(b)
 }
