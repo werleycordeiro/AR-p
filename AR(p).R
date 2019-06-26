@@ -44,6 +44,8 @@ names = paste0("Beta",pars$orderp)
 rownames(b) = c("intercept",names)
 return(b)
 }
+source("ar_p.R")
+ar_p(data=data,p=p)
 
 # Compare with ar{stats}
-ar(data,FALSE,order.max=1,method="ols",demean=TRUE)
+ar(data,FALSE,order.max=p,method="ols",demean=TRUE)
