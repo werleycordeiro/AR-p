@@ -10,32 +10,37 @@ data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 
 data = diff(data)[-1]
 
-para = c(mean(data),0.2,var(data))
+q = 2
 
-ma_1 = function(data,para){
+para = matrix(0.2,1,(2+q))
 
-e = matrix(NA,n,1)
-n = dim(data)[1]
-  
-e[1] = 0
+para[1] = mean(data)
+para[(2+q)] = var(data) 
+
+ma_q = function(para,data,q){
+
 mu = para[1]
-theta = para[2]
-sigma2 = para[3]
-
+theta = para[2:(q+1)]
+sigma2 = para[(2+q)]
+e = matrix(0,n,1)
+n = dim(data)[1]
 
 loglik = -.5 * n * log(2 * pi)
 
 for(i in 1:dim(data)[1]){
-	e[i+1] = data[i]-mu-theta * e[i]
-	e2 = (e[i+1])^2
+	e[i+q] = data[i]-mu-(theta %*% e[(1+i-1):(q+i-1)])
+	e2 = (e[i+q])^2 
 	loglik = loglik - .5 * log(sigma2)-(e2/(2*sigma2))
 	}
 return(-loglik)
 }
 
-ma_1(data=data,para=para)
+ma_q(para=para,data=data,q=q)
 
-otim = optim(par=para,fn=ma_1,data=data,method="L-BFGS-B",lower = c(-Inf,-Inf,0),control=list("trace"=1))
+low = c(rep(-Inf,q+1),0)
+
+otim = optim(par=para,fn=ma_q,data=data,q=q,method="L-BFGS-B",lower = low,control=list("trace"=1))
+
 
 results = as.matrix(otim$par)
 rownames(results) = c("intercept","ma1","sigma^2")
@@ -43,4 +48,4 @@ results
 
 # compare with arma {stats}
 
-arima(data,order=c(0,0,1))$coef # MA(1)
+arima(data,order=c(0,0,q))$coef # MA(q)
