@@ -41,10 +41,10 @@ low = c(rep(-Inf,q+1),0)
 
 otim = optim(par=para,fn=ma_q,data=data,q=q,method="L-BFGS-B",lower = low,control=list("trace"=1))
 
-
-results = as.matrix(otim$par)
-rownames(results) = c("intercept","ma1","sigma^2")
-results
+pars = expand.grid(orderq = q:1)
+names = paste0("ma",pars$orderq)
+colnames(otim$par) = c("intercept",names,"sigma^2")
+otim$par
 
 # compare with arma {stats}
 
