@@ -43,4 +43,4 @@ results
 
 # compare with arma {stats}
 
-arima(data,order=c(0,0,1))$coef
+arima(data,order=c(0,0,1))$coef # MA(1)
