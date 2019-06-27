@@ -11,6 +11,8 @@ library(quantmod)
 getSymbols('PBR',return.class = 'xts',index.class = 'Date',from = "2019-01-01",to = Sys.Date(),periodicity = "daily",src='yahoo')
 data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 
+data = diff(data)[-1]
+
 # AR(p)
 # OLS
 
