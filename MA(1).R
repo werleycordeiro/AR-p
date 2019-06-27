@@ -36,3 +36,11 @@ return(-loglik)
 ma_1(data=data,para=para)
 
 otim = optim(par=para,fn=ma_1,data=data,method="L-BFGS-B",lower = c(-Inf,-Inf,0),control=list("trace"=1))
+
+results = as.matrix(otim$par)
+rownames(results) = c("intercept","ma1","sigma^2")
+results
+
+# compare with arma {stats}
+
+arima(data,order=c(0,0,1))$coef
