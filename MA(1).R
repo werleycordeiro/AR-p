@@ -10,7 +10,7 @@ data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 
 data = diff(data)[-1]
 
-para = c(mean(data),var(data),0.2)
+para = c(mean(data),0.2,var(data))
 
 ma_1 = function(data,para){
 
@@ -19,8 +19,9 @@ n = dim(data)[1]
   
 e[1] = 0
 mu = para[1]
-sigma2 = (para[2])^2
-theta = para[3]
+theta = para[2]
+sigma2 = para[3]
+
 
 loglik = -.5 * n * log(2 * pi)
 
@@ -34,4 +35,4 @@ return(-loglik)
 
 ma_1(data=data,para=para)
 
-otim = optim(par=para,fn=ma_1,data=data,method="BFGS",control=list("trace"=1))
+otim = optim(par=para,fn=ma_1,data=data,method="L-BFGS-B",lower = c(-Inf,-Inf,0),control=list("trace"=1))
