@@ -14,7 +14,8 @@ data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 # AR(p)
 # OLS
 
-p = 2
+p = 2 # AR Order
+
 source("ar_p.R")
 ar_p(data=data,p=p,inter=TRUE)
 
