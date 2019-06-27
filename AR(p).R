@@ -13,6 +13,8 @@ data = PBR$PBR.Close # Petróleo Brasileiro S.A. - Petrobras (PBR) - NYSE (USD)
 
 data = diff(data)[-1]
 
+# Obs.: pacf(data) ?
+
 # AR(p)
 # OLS
 
