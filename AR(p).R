@@ -4,7 +4,7 @@
 # Package
 
 install.packages("quantmod")
-library(quantmod)
+suppressMessages(library(quantmod))
 
 # Data
 
@@ -17,12 +17,12 @@ data = diff(data)[-1]
 
 # AR(p)
 
-p = 1 # AR Order
-inter = FALSE
+p = 2 # AR Order
+inter = TRUE
 source("ar_p.R")
 ar_p(data=data,p=p,inter=inter,meth="mle") # inter: intercept = TRUE or FALSE. meth  = "ols" or "mle"
 
 # Compare with ar{stats}
 
-ar(x=data,aic=FALSE,order.max=p,method="ols",demean=TRUE)
+ar(x=data,aic=FALSE,order.max=p,method="ols",demean=inter)
 arima(data,order=c(p,0,0),method="ML")
