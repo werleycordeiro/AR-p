@@ -2,26 +2,11 @@
 # AR(p)
 
 ar_p<-function(data,p,inter){
-T = dim(data)[1]
-if(p==1){
-	Y = as.numeric(data[-1])
-	X = as.numeric(data[-T])
-	if(inter){X = cbind(rep(1,length(X)),X)}
-}else{
-	if(p>1){
-		X = matrix(NA,T-p,p)
-			for(i in 1:p){
-	 			if(i<p){
-					 aux = as.numeric(data[1:(T-i)]) # exclude final observations according to order p
-	 			  X[,i]= aux[-(1:(p-i))] # exclude initial observations according to order p
-				}else{
-					X[,i] = as.numeric(data[1:(T-p)]) # exclude only final observations in the last vector p
-			}
-		}
-		Y = as.numeric(data[-(1:p)])
-		if(inter){X = cbind(rep(1,dim(X)[1]),X)}
-		}
-}
+
+source("dataf.R")
+dat = dataf(data=data,inter=inter,p=p)
+Y = dat$Y
+X = dat$X
 
 b = solve(t(X) %*% X) %*% t(X) %*% Y
 pars = expand.grid(orderp = 1:p)
