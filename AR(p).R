@@ -20,8 +20,9 @@ data = diff(data)[-1]
 p = 1 # AR Order
 
 source("ar_p.R")
-ar_p(data=data,p=p,inter=TRUE,meth="mle")
+ar_p(data=data,p=p,inter=TRUE,meth="mle") # meth  = "ols" or "mle"
 
-# Compare with arima{stats}
+# Compare with ar{stats}
 
 ar(x=data,aic=FALSE,order.max=p,method="ols",demean=TRUE)
+arima(data,order=c(p,0,0),method="ML")
