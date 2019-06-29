@@ -21,4 +21,3 @@ if(p==1){
 }
 return(list(X=X,Y=Y))
 }
-
