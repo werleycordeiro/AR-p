@@ -24,37 +24,10 @@ ar_p<-function(data,p,inter,meth){
       para[1] = b[1,]
       para[2:(p+1)] = b[2:(p+1),]
       para[(p+2)] = var(data)
-
-      ml = function(para,data,p,inter){
-
-        T = dim(data)[1]
-        data = data
-        inter = inter
-        p = p
- 
-        source("dataf.R")
-
-        dat = dataf(data=data,inter=inter,p=p)
-        Y = dat$Y
-        X = dat$X
- 
-        beta = as.matrix(para[1:(p+1)])
-        sigma2 = para[(p+2)]
-
-        loglik = -.5 * (T-p) * log(2 * pi)
-
-		    for(i in 1:(T-p)){
-			      e = Y[i] - X[i,] %*% beta
-
-			      loglik = loglik -.5 * log(sigma2) - ((e)^2)/(2*sigma2)
-			      }
-	          return(-loglik)
-         }
-
-         low = c(rep(-1,p+1),1e-100)
-
-          otim<-optim(par=as.numeric(para),fn=ml,data=data,p=p,inter=inter,lower=low,method="L-BFGS-B",control=list("trace"=1))
-          return(otim$par)
+       source("mle.R")
+       low = c(rep(-1,p+1),1e-100)
+       otim<-optim(par=as.numeric(para),fn=mle,data=data,p=p,inter=inter,lower=low,method="L-BFGS-B",control=list("trace"=1))
+       return(otim$par)
         }
 
    }
