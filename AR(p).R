@@ -18,9 +18,9 @@ data = diff(data)[-1]
 # AR(p)
 
 p = 1 # AR Order
-
+inter = FALSE
 source("ar_p.R")
-ar_p(data=data,p=p,inter=TRUE,meth="mle") # inter: intercept = TRUE or FALSE. meth  = "ols" or "mle"
+ar_p(data=data,p=p,inter=inter,meth="mle") # inter: intercept = TRUE or FALSE. meth  = "ols" or "mle"
 
 # Compare with ar{stats}
 

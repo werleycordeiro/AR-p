@@ -1,5 +1,4 @@
 # AR(p)
-
 ar_p<-function(data,p,inter,meth){
 
  source("dataf.R")
@@ -25,13 +24,15 @@ ar_p<-function(data,p,inter,meth){
       para[1] = b[1,]
       para[2:(p+1)] = b[2:(p+1),]
       para[(p+2)] = var(data)
+      low = c(rep(-Inf,p+1),1e-100)
       }else{
          para = matrix(NA,(p+1),1)
-         para[1:(p+1)] = b[1:(p+1),]
+         para[1:p] = b[(1:p),]
          para[(p+1)] = var(data)
+         low = c(rep(-Inf,p),1e-100)
          }
        source("mle.R")
-       low = c(rep(-1,p+1),1e-100)
+       
        otim<-optim(par=as.numeric(para),fn=mle,data=data,p=p,inter=inter,lower=low,method="L-BFGS-B",control=list("trace"=1))
        return(otim$par)
         }
