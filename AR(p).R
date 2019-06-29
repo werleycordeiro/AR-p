@@ -16,13 +16,12 @@ data = diff(data)[-1]
 # Obs.: pacf(data) ?
 
 # AR(p)
-# OLS
 
-p = 2 # AR Order
+p = 1 # AR Order
 
 source("ar_p.R")
-ar_p(data=data,p=p,inter=TRUE)
+ar_p(data=data,p=p,inter=TRUE,meth="ols")
 
-# Compare with ar{stats}
+# Compare with arima{stats}
 
 ar(x=data,aic=FALSE,order.max=p,method="ols",demean=TRUE)
