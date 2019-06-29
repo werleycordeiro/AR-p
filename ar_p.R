@@ -20,10 +20,16 @@ ar_p<-function(data,p,inter,meth){
       return(b)
  }else{
    if(meth=="mle"){
+      if(inter){
       para = matrix(NA,(p+2),1)
       para[1] = b[1,]
       para[2:(p+1)] = b[2:(p+1),]
       para[(p+2)] = var(data)
+      }else{
+         para = matrix(NA,(p+1),1)
+         para[1:(p+1)] = b[1:(p+1),]
+         para[(p+1)] = var(data)
+         }
        source("mle.R")
        low = c(rep(-1,p+1),1e-100)
        otim<-optim(par=as.numeric(para),fn=mle,data=data,p=p,inter=inter,lower=low,method="L-BFGS-B",control=list("trace"=1))

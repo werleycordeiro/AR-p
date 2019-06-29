@@ -3,7 +3,7 @@ T = dim(data)[1]
 if(p==1){
 	Y = as.numeric(data[-1])
 	X = as.numeric(data[-T])
-	X = cbind(rep(1,length(X)),X)
+	if(inter){X = cbind(rep(1,length(X)),X)}
 }else{
 	if(p>1){
 		X = matrix(NA,T-p,p)
